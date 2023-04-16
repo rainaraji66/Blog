@@ -1,0 +1,29 @@
+{% extends "muruga/base.html" %}
+{% block content %}
+
+
+  {% for data in datas %}
+      <article class="media content-section">
+        <!-- <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}"> -->
+        <div class="media-body">
+          <div class="article-metadata">
+            <a class="mr-2" href="#">{{ data.author }}</a>
+            <small class="text-muted">{{ data.date }}</small>
+          </div>
+          {% if object.author == user %}
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'data_update' object.id %}">Update</a>
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'data_delete' object.id %}">Delete</a>
+          {% endif %}
+          <h2><a class="article-title" href="{% url 'data_detail' data.id %}">{{ data.title }}</a></h2>
+          <p class="article-content">{{ data.content }}</p>
+          {% if post_is_liked %}
+          <button type="submit" name="blogpost_id" value="{{object.id}}" class="btn btn-info">Unlike</button>
+          {% else %}
+          <button type="submit" name="blogpost_id" value="{{object.id}}" class="btn btn-info">Like</button>
+          {% endif %}
+          <button type="submit" name="blogpost_id" value="{{object.id}}" class="btn btn-info">Comment</button>
+
+        </div>
+      </article>
+  {% endfor %}
+{% endblock content %}
